@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "New Tab",
+    "description": "Make boring things less boring :D",
+    "version": "1.0.2",
+    "author": "Bùi Mạnh Thắng",
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "New Tab"
+    },
+    "chrome_url_overrides" : {
+        "newtab": "index.html"
+    },
+    "permissions": ["activeTab"]
+}
