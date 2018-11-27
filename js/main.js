@@ -4,11 +4,67 @@
  	once: false
  });
 
+ function getDate() {
+	let currentDate = new Date()
+	let day = currentDate.getDate()
+	if (day < 10) day = "0" + day;
+	let month = currentDate.getMonth() + 1
+	if (month < 10) month = "0" + month;
+	let year = currentDate.getFullYear()
+	return "" + day + "/" + month + "/" + year + "";
+ }
+ function getTime() {
+	let currentDate = new Date();
+	let hour = currentDate.getHours();
+	if (hour < 10) hour = "0" + hour;
+	let minute = currentDate.getMinutes() + 1
+	if (minute < 10) minute = "0" + minute;
+	return "" + hour + ":" + minute + "";
+ }
+
+ let todos = [
+	{
+			id: 1,
+			title: 'Dắt chó đi dạo',
+			date: getDate(),
+			time: getTime(),
+			done: true,
+	},
+	{
+			id: 2,
+			title: 'Đi chơi với người yêu',
+			date: getDate(),
+			time: getTime(),
+			done: false,
+	},
+	{
+			id: 3,
+			title: 'Mua sách Tiki',
+			date: getDate(),
+			time: getTime(),
+			done: true,
+	},
+	{
+			id: 1,
+			title: 'Mang tiền đi tiêu',
+			date: getDate(),
+			time: getTime(),
+			done: true,
+	}
+]
+
 jQuery(document).ready(function($) {
 
 	"use strict";
-
-	
+	for (let i = 0; i < todos.length; i++) {
+		let todo = todos[i];
+		let title = todo.title;
+		let date = todo.date;
+		let time = todo.time;
+		let tag = todo.done ? "Completed" : "Todo";
+		let strEle = `<div class=\"row\"><div class=\"col-md-12\"><div class=\"job-post-item bg-white p-4 d-block d-md-flex align-items-center\"><div class=\"mb-4 mb-md-0 mr-5\"><div class=\"job-post-item-header d-flex align-items-center\"><h2 class=\"mr-3 text-black h4\">${title}</h2><div class=\"badge-wrap\"><span class=\"${todo.done ? "bg-success" : "bg-warning"} text-white badge py-2 px-4\">${tag}</span></div></div><div class=\"job-post-item-body d-block d-md-flex\"><div class=\"mr-3\"><span class=\"fl-bigmug-line-portfolio23\"></span> <a href=\"#\">${date}</a></div><div><span class=\"fl-bigmug-line-big104\"></span> <span>${time}</span></div></div></div><div class=\"ml-auto\"><span class=\"btn btn-secondary rounded-circle btn-favorite text-gray-500\" style=\"margin-right: 10px !important; color: white !important; border-color: #f23a2e; background: #f23a2e;\"><span class=\"icon-trash\"></span></span><button class=\"btn btn-primary py-2\" ${todo.done ? "disabled" : ""}>Done</button></div></div></div></div>`;
+		$("#todoslist").append($(strEle));
+	}
 
 	var siteMenuClone = function() {
 

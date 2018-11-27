@@ -1933,7 +1933,7 @@ font-size: 12px; }
       background: transparent;
       color: #000; }
       .primary-btn:hover:after {
-        height: 200%;
+        height: 130%;
         opacity: 1;
         background: #f9cc41; }
     .primary-btn.dark {
@@ -1941,5 +1941,6 @@ font-size: 12px; }
       color: #ffffff;
       border: 1px solid #000; }
       .primary-btn.dark:hover {
-        background: transparent;
+        background: black;
+        color: black;
         border: 1px solid #f9cc41; }
