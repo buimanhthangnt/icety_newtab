@@ -1,22 +1,21 @@
 
-
- function getDate(datetime) {
-	if (!datetime) datetime = new Date()
-	let day = datetime.getDate()
-	if (day < 10) day = "0" + day;
-	let month = datetime.getMonth() + 1
-	if (month < 10) month = "0" + month;
-	let year = datetime.getFullYear()
-	return "" + day + "/" + month + "/" + year + "";
- }
- function getTime(datetime) {
-	if (!datetime) datetime = new Date()
-	let hour = datetime.getHours();
-	if (hour < 10) hour = "0" + hour;
-	let minute = datetime.getMinutes() + 1
-	if (minute < 10) minute = "0" + minute;
-	return "" + hour + ":" + minute + "";
- }
+function getDate(datetime) {
+if (!datetime) datetime = new Date()
+let day = datetime.getDate()
+if (day < 10) day = "0" + day;
+let month = datetime.getMonth() + 1
+if (month < 10) month = "0" + month;
+let year = datetime.getFullYear()
+return "" + day + "/" + month + "/" + year + "";
+}
+function getTime(datetime) {
+if (!datetime) datetime = new Date()
+let hour = datetime.getHours();
+if (hour < 10) hour = "0" + hour;
+let minute = datetime.getMinutes() + 1
+if (minute < 10) minute = "0" + minute;
+return "" + hour + ":" + minute + "";
+}
 
 let todos = window.localStorage.getItem('todos') || "[]";
 todos = JSON.parse(todos)
@@ -24,7 +23,7 @@ todos = JSON.parse(todos)
 $(document).ready(function($) {
 	"use strict";
 	let url = window.localStorage.getItem('url');
-	url = (url && navigator.onLine) ? url : "images/background.jpg";
+	url = (url) ? url : defaultImage;
 	$(".site-blocks-cover").css("background-image", 'url('+ url +')');
 
 	$(".site-blocks-cover").addClass("start_fade");
@@ -172,5 +171,14 @@ $(document).ready(function($) {
 		window.localStorage.setItem('url', url);
 		$("#image-url").val("")
 	});
-		
+	$("#image-url").change(function () {
+		if ($("#image-url")[0].files.length == 0) return;
+		let reader = new FileReader();
+		reader.readAsDataURL($("#image-url")[0].files[0]);
+		reader.onload = function () {
+			url = reader.result;
+			$(".site-blocks-cover").css("background-image", 'url('+ url +')');
+			window.localStorage.setItem('url', url);
+		};
+	});
 });

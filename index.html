@@ -48,13 +48,17 @@
                 </h4>
                 <div class="table_form">
                   <form class="book_table_form row" action="#">
-                    <div class="form-group col-md-12" style="margin-top: 5px; margin-bottom: 10px">
-                      <input autocomplete="off" id="image-url" style="color: black !important; height: 34px" type="text" class="form-control" name="name" placeholder="Paste image url here">
-                    </div>
-                    <div class="form-group col-md-12">
-                      <button type="submit" value="submit" class="primary-btn dark"
-                      style="line-height: 0; height: 32px; width: 100%; border: 1px solid #f9cc41" id="btn-change-bg">Change</button>
-                    </div>
+                    <label class="primary-btn dark" 
+                            style="height: 32px; width: 100%; border: 1px solid #f9cc41; 
+                            margin: 10px 15px 0 15px; display: flex; align-items: center;
+                            justify-content: center">
+                      <!-- <button type="submit" value="submit" class="primary-btn dark"
+                              style="line-height: 0; height: 32px; width: 100%; border: 1px solid #f9cc41" 
+                              id="btn-change-bg">Change</button> -->
+                        Change
+                      <input autocomplete="off" id="image-url" style="display: none" 
+                              type="file" accept="image/jpeg,image/png" name="url" placeholder="Paste image url here">
+                    </label>
                   </form>
                 </div>
               </li>
@@ -106,7 +110,7 @@
       <div class="container">
         <div class="row row-custom align-items-center">
           <div class="col-md-10">
-            <h1 class="mb-2 text-black w-75" style="font-size: 1.5rem;"><div id="welcome-text" class="font-weight-bold" style="font-size: 3rem;">Hi</div>
+            <h1 class="mb-2 text-black w-75" style="font-size: 1.5rem;"><div id="welcome-text" class="font-weight-bold" style="font-size: 3rem;"></div>
               <span id="quote">Have a good day</span><br/><br/>
               <a id="noti" style="font-size: 1.2rem; text-decoration: underline; display: block; cursor: pointer;"></a>
             </h1>
@@ -144,6 +148,7 @@
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="images/default.js"></script>
   <script src="js/main.js"></script>
     
   </body>
