@@ -29,14 +29,28 @@ jQuery(document).ready(function($) {
 	/////////////////////////////////////////////////////////////////////////////////////////
 	"use strict";
 
+	function setNotitext () {
+		let filtered = todos.filter(t => {
+			if (t.done) return false;
+			let current = new Date();
+			return getDate(current) > t.date || (getDate(current) == t.date && getTime(current) > t.time)
+		});
+		if (filtered.length == 0) {
+			$("#noti").text("You have nothing to do now");
+		} else {
+			$("#noti").text(`You have ${filtered.length} things to do`);
+		}
+	}
+
+	setNotitext();
+
 	$("#todo-add-submit").on('click', function (e) {
 		e.preventDefault();
 		let title = $("#todo-add-title").val();
 		if (title.trim() == "") return;
 		$("#todo-add-title").val("")
 		let datetime = new Date($("#todo-add-datetime").val());
-		// if (datetime == "Invalid Date") return;
-		if (!datetime) return;
+		if (datetime == "Invalid Date") datetime = new Date();
 		$("#todo-add-datetime").val(null);
 		let todo = {
 			title: title,
@@ -59,6 +73,7 @@ jQuery(document).ready(function($) {
 	function handleAdd(todo) {
 		todos.push(todo);
 		update(todos);
+		setNotitext();
 	}
 
 	function handleDelete(index) {
@@ -68,6 +83,7 @@ jQuery(document).ready(function($) {
 			let new_todos = todos.filter((t, i) => i != index);
 			update(new_todos, todos);
 			todos = new_todos;
+			setNotitext();
 		}, 600);
 	}
 
@@ -79,6 +95,7 @@ jQuery(document).ready(function($) {
 				return t;
 			}
 		})
+		setNotitext();
 		update(todos);
 	}
 
@@ -175,6 +192,15 @@ jQuery(document).ready(function($) {
 		$("#btn-restore").on('click', function() {
 			window.localStorage.clear();
 			alert("Restored default settings. Refresh to see affects.")
+		});
+
+		$("#noti").on('click', function() {
+			$("#myContainer").show();
+			setTimeout(function () {
+				$('html, body').animate({
+						scrollTop: $(".site-blocks-cover").height()
+				}, 500);
+			}, 50);
 		});
 
 		$('#btn-save-name').on('click', function(e) {
