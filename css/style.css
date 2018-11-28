@@ -1841,6 +1841,64 @@ font-size: 12px; }
 	cursor: pointer;
 }
 
+.primary-btn2 {
+  background: #f9cc41;
+  height: 50px;
+  line-height: 46px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 0px;
+  border: 1px solid #f9cc41;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  text-transform: capitalize;
+  overflow: hidden;
+  transition: all 300ms linear 0s; 
+}
+.primary-btn2:focus {
+  outline: none; }
+.primary-btn2:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  background: #ffffff;
+  opacity: 0;
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  -o-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  transition: all 300ms linear 0s; 
+}
+.primary-btn2:hover {
+  background: transparent;
+  color: #000; 
+}
+.primary-btn2:hover:after {
+  height: 120%;
+  opacity: 1;
+  background: #f9cc41; 
+}
+.primary-btn2.dark {
+  background: #000;
+  color: #ffffff;
+  border: 1px solid #000; 
+}
+.primary-btn2.dark:hover {
+  background: black;
+  color: black;
+  border: 1px solid #f9cc41; 
+}
+
 .table_form h3 {
   color: #222222;
   font-size: 48px;
@@ -1893,54 +1951,64 @@ font-size: 12px; }
 .book_table_form .form-group:last-child {
   text-align: center; }
 
-  .primary-btn {
-    background: #f9cc41;
-    height: 50px;
-    line-height: 46px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 0px;
-    border: 1px solid #f9cc41;
-    color: #ffffff;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 500;
-    position: relative;
-    z-index: 2;
-    cursor: pointer;
-    text-transform: capitalize;
-    overflow: hidden;
-    transition: all 300ms linear 0s; }
-    .primary-btn:focus {
-      outline: none; }
-    .primary-btn:after {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      width: 100%;
-      height: 0;
-      top: 50%;
-      left: 50%;
-      background: #ffffff;
-      opacity: 0;
-      -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg);
-      -o-transform: translateX(-50%) translateY(-50%) rotate(45deg);
-      -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
-      -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
-      transform: translateX(-50%) translateY(-50%) rotate(45deg);
-      transition: all 300ms linear 0s; }
-    .primary-btn:hover {
-      background: transparent;
-      color: #000; }
-      .primary-btn:hover:after {
-        height: 130%;
-        opacity: 1;
-        background: #f9cc41; }
-    .primary-btn.dark {
-      background: #000;
-      color: #ffffff;
-      border: 1px solid #000; }
-      .primary-btn.dark:hover {
-        background: black;
-        color: black;
-        border: 1px solid #f9cc41; }
+.primary-btn {
+  background: #f9cc41;
+  height: 50px;
+  line-height: 46px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 0px;
+  border: 1px solid #f9cc41;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  text-transform: capitalize;
+  overflow: hidden;
+  transition: all 300ms linear 0s; 
+}
+.primary-btn:focus {
+  outline: none; }
+.primary-btn:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  background: #ffffff;
+  opacity: 0;
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  -o-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+  transition: all 300ms linear 0s; 
+}
+.primary-btn:hover {
+  background: transparent;
+  color: #000; 
+}
+.primary-btn:hover:after {
+  height: 300%;
+  opacity: 1;
+  background: #f9cc41; 
+}
+.primary-btn.dark {
+  background: #000;
+  color: #ffffff;
+  border: 1px solid #000; 
+}
+.primary-btn.dark:hover {
+  background: black;
+  color: black;
+  border: 1px solid #f9cc41; 
+}
+.start_fade {
+  /* opacity: 1 !important; */
+  /* transition: opacity 0.3s ease-out; */
+}

@@ -1,8 +1,4 @@
- AOS.init({
- 	duration: 800,
- 	easing: 'slide',
- 	once: false
- });
+
 
  function getDate(datetime) {
 	if (!datetime) datetime = new Date()
@@ -25,9 +21,13 @@
 let todos = window.localStorage.getItem('todos') || "[]";
 todos = JSON.parse(todos)
 
-jQuery(document).ready(function($) {
-	/////////////////////////////////////////////////////////////////////////////////////////
+$(document).ready(function($) {
 	"use strict";
+	let url = window.localStorage.getItem('url');
+	url = (url && navigator.onLine) ? url : "images/background.jpg";
+	$(".site-blocks-cover").css("background-image", 'url('+ url +')');
+
+	$(".site-blocks-cover").addClass("start_fade");
 
 	function setNotitext () {
 		let filtered = todos.filter(t => {
@@ -119,281 +119,56 @@ jQuery(document).ready(function($) {
 	}
 
 	renderTodos(todos);
-	///////////////////////////////////////////////////////////////////////////////////
 
-	let siteMenuClone = function() {
-
-		$('.js-clone-nav').each(function() {
-			let $this = $(this);
-			$this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
-		});
-
-
-		setTimeout(function() {
-			
-			let counter = 0;
-      $('.site-mobile-menu .has-children').each(function(){
-        let $this = $(this);
-        
-        $this.prepend('<span class="arrow-collapse collapsed">');
-
-        $this.find('.arrow-collapse').attr({
-          'data-toggle' : 'collapse',
-          'data-target' : '#collapseItem' + counter,
-        });
-
-        $this.find('> ul').attr({
-          'class' : 'collapse',
-          'id' : 'collapseItem' + counter,
-        });
-
-        counter++;
-
-      });
-
-    }, 1000);
-
-		$('body').on('click', '.arrow-collapse', function(e) {
-      let $this = $(this);
-      if ( $this.closest('li').find('.collapse').hasClass('show') ) {
-        $this.removeClass('active');
-      } else {
-        $this.addClass('active');
-      }
-      e.preventDefault();  
-      
-    });
-
-		$(window).resize(function() {
-			let $this = $(this),
-				w = $this.width();
-
-			if ( w > 768 ) {
-				if ( $('body').hasClass('offcanvas-menu') ) {
-					$('body').removeClass('offcanvas-menu');
-				}
-			}
-		})
-		
-		///////////////////////////////////////////////////////////////
-    $(".toggle_icon").on('click', function () {
-        $('.right_fix_bar').toggleClass("open_sidebar");
-				$('.site-wrap').toggleClass('opacity-1');
+	$(".toggle_icon").on('click', function () {
+			$('.right_fix_bar').toggleClass("open_sidebar");
+			$('.site-wrap').toggleClass('opacity-1');
+			$(".toggle_icon").toggleClass('opacity-1');
+			setTimeout(function() {
 				$(".toggle_icon").toggleClass('opacity-1');
-				setTimeout(function() {
-					$(".toggle_icon").toggleClass('opacity-1');
-				}, 300);
-		});
+			}, 300);
+	});
 
-		$("#pills-job-tab").on('click', function() {
-			$('#pills-tabContent').toggleClass('tab-content-faded');
-		});
+	$("#pills-job-tab").on('click', function() {
+		$('#pills-tabContent').toggleClass('tab-content-faded');
+	});
 
-		$("#btn-restore").on('click', function(e) {
-			e.preventDefault();
-			window.localStorage.clear();
-			alert("Restored default settings. Refresh to see affects.")
-		});
+	$("#btn-restore").on('click', function(e) {
+		e.preventDefault();
+		window.localStorage.clear();
+		alert("Restored default settings. Refresh to see affects.")
+	});
 
-		$("#noti").on('click', function() {
-			$("#myContainer").show();
-			setTimeout(function () {
-				$('html, body').animate({
-						scrollTop: $(".site-blocks-cover").height()
-				}, 500);
-			}, 50);
-		});
+	$("#noti").on('click', function() {
+		$("#myContainer").show();
+		setTimeout(function () {
+			$('html, body').animate({
+					scrollTop: $(".site-blocks-cover").height()
+			}, 500);
+		}, 50);
+	});
 
-		$('#btn-save-name').on('click', function(e) {
-			e.preventDefault();
-			let username = $('#username-input').val();
-			window.localStorage.setItem('username', username);
-			$('#username-input').val("");
-			$("#welcome-text").text("Hi, " + username);
-			alert("Set your name successfully")
-		});
+	$('#btn-save-name').on('click', function(e) {
+		e.preventDefault();
+		let username = $('#username-input').val();
+		window.localStorage.setItem('username', username);
+		$('#username-input').val("");
+		$("#welcome-text").text("Hi, " + username);
+		alert("Set your name successfully")
+	});
 
-		let username = window.localStorage.getItem('username');
-		$("#welcome-text").text((username ? ("Hi, " + username) : "Welcome"));
+	let username = window.localStorage.getItem('username');
+	$("#welcome-text").text((username ? ("Hi, " + username) : "Welcome"));
 
-		let url = window.localStorage.getItem('url');
-		url = (url && navigator.onLine) ? url : "images/background.jpg";
+	$("#btn-change-bg").on('click', function(e) {
+		e.preventDefault();
+		let url = $("#image-url").val();
+		if (url.trim() == "") {
+			return;
+		}
 		$(".site-blocks-cover").css("background-image", 'url('+ url +')');
-
-		function ValidURL(str) {
-			let pattern = new RegExp('^(https?:\/\/)?'+ // protocol
-				'((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
-				'((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
-				'(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
-				'(\?[;&a-z\d%_.~+=-]*)?'+ // query string
-				'(\#[-a-z\d_]*)?$','i'); // fragment locater
-			if(!pattern.test(str)) {
-				alert("Please enter a valid URL.");
-				return false;
-			} else {
-				return true;
-			}
-		}
-		$("#btn-change-bg").on('click', function(e) {
-			e.preventDefault();
-			let url = $("#image-url").val();
-			if (url.trim() == "") {
-				return;
-			}
-			$(".site-blocks-cover").css("background-image", 'url('+ url +')');
-			window.localStorage.setItem('url', url);
-			$("#image-url").val("")
-		});
+		window.localStorage.setItem('url', url);
+		$("#image-url").val("")
+	});
 		
-		//////////////////////////////////////////////////////////////
-
-		$('body').on('click', '.js-menu-toggle', function(e) {
-			let $this = $(this);
-			e.preventDefault();
-
-			if ( $('body').hasClass('offcanvas-menu') ) {
-				$('body').removeClass('offcanvas-menu');
-				$this.removeClass('active');
-			} else {
-				$('body').addClass('offcanvas-menu');
-				$this.addClass('active');
-			}
-		}) 
-
-		// click outisde offcanvas
-		$(document).mouseup(function(e) {
-	    let container = $(".site-mobile-menu");
-	    if (!container.is(e.target) && container.has(e.target).length === 0) {
-	      if ( $('body').hasClass('offcanvas-menu') ) {
-					$('body').removeClass('offcanvas-menu');
-				}
-	    }
-		});
-	}; 
-	siteMenuClone();
-
-
-	let sitePlusMinus = function() {
-		$('.js-btn-minus').on('click', function(e){
-			e.preventDefault();
-			if ( $(this).closest('.input-group').find('.form-control').val() != 0  ) {
-				$(this).closest('.input-group').find('.form-control').val(parseInt($(this).closest('.input-group').find('.form-control').val()) - 1);
-			} else {
-				$(this).closest('.input-group').find('.form-control').val(parseInt(0));
-			}
-		});
-		$('.js-btn-plus').on('click', function(e){
-			e.preventDefault();
-			$(this).closest('.input-group').find('.form-control').val(parseInt($(this).closest('.input-group').find('.form-control').val()) + 1);
-		});
-	};
-	// sitePlusMinus();
-
-
-	let siteSliderRange = function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
-    });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-	};
-
-	let siteCarousel = function () {
-		if ( $('.nonloop-block-13').length > 0 ) {
-			$('.nonloop-block-13').owlCarousel({
-		    center: false,
-		    items: 1,
-		    loop: true,
-				stagePadding: 0,
-		    margin: 20,
-		    nav: false,
-		    dots: true,
-				navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">'],
-		    responsive:{
-	        600:{
-	        	margin: 20,
-	        	stagePadding: 0,
-	          items: 1
-	        },
-	        1000:{
-	        	margin: 20,
-	        	stagePadding: 0,
-	          items: 2
-	        },
-	        1200:{
-	        	margin: 20,
-	        	stagePadding: 0,
-	          items: 2
-	        }
-		    }
-			});
-		}
-
-		if ( $('.slide-one-item').length > 0 ) {
-			$('.slide-one-item').owlCarousel({
-		    center: false,
-		    items: 1,
-		    loop: true,
-				stagePadding: 0,
-		    margin: 0,
-		    autoplay: true,
-		    pauseOnHover: false,
-		    nav: true,
-		    animateOut: 'fadeOut',
-		    animateIn: 'fadeIn',
-		    navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">']
-		  });
-	  }
-
-
-	  if ( $('.nonloop-block-4').length > 0 ) {
-		  $('.nonloop-block-4').owlCarousel({
-		    center: true,
-		    items:1,
-		    loop:false,
-		    margin:10,
-		    nav: true,
-				navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">'],
-		    responsive:{
-	        600:{
-	          items:1
-	        }
-		    }
-			});
-		}
-
-	};
-	siteCarousel();
-
-	let siteCountDown = function() {
-
-		if ( $('#date-countdown').length > 0 ) {
-			$('#date-countdown').countdown('2020/10/10', function(event) {
-			  let $this = $(this).html(event.strftime(''
-			    + '<span class="countdown-block"><span class="label">%w</span> weeks </span>'
-			    + '<span class="countdown-block"><span class="label">%d</span> days </span>'
-			    + '<span class="countdown-block"><span class="label">%H</span> hr </span>'
-			    + '<span class="countdown-block"><span class="label">%M</span> min </span>'
-			    + '<span class="countdown-block"><span class="label">%S</span> sec</span>'));
-			});
-		}
-				
-	};
-	siteCountDown();
-
-	let siteDatePicker = function() {
-
-		if ( $('.datepicker').length > 0 ) {
-			$('.datepicker').datepicker();
-		}
-
-	};
-	siteDatePicker();
-
 });
