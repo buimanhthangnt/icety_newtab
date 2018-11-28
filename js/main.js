@@ -25,14 +25,14 @@
  let todos = [
 	{
 			id: 1,
-			title: 'Dắt chó đi dạo',
+			title: 'Abc def ghi',
 			date: getDate(),
 			time: getTime(),
 			done: true,
 	},
 	{
 			id: 2,
-			title: 'Đi chơi với người yêu',
+			title: 'Abc def ghi',
 			date: getDate(),
 			time: getTime(),
 			done: false,
@@ -120,7 +120,7 @@ jQuery(document).ready(function($) {
 			}
 		})
 		
-		/////////////////////
+		///////////////////////////////////////////////////////////////
     $(".toggle_icon").on('click', function () {
         $('.right_fix_bar').toggleClass("open_sidebar");
 				$('.site-wrap').toggleClass('opacity-1');
@@ -145,7 +145,7 @@ jQuery(document).ready(function($) {
 		let username = window.localStorage.getItem('username');
 		$("#welcome-text").text((username ? ("Hi, " + username) : "Welcome"));
 		let url = window.localStorage.getItem('url');
-		url = url ? url : "images/background.jpg";
+		url = (url && navigator.onLine) ? url : "images/background.jpg";
 		$(".site-blocks-cover").css("background-image", 'url('+ url +')');
 
 		function ValidURL(str) {
@@ -173,7 +173,7 @@ jQuery(document).ready(function($) {
 			$("#image-url").val("")
 		});
 		
-		//////////////////////
+		//////////////////////////////////////////////////////////////
 
 		$('body').on('click', '.js-menu-toggle', function(e) {
 			var $this = $(this);
@@ -231,42 +231,6 @@ jQuery(document).ready(function($) {
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
       " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 	};
-	// siteSliderRange();
-
-
-	var siteMagnificPopup = function() {
-		$('.image-popup').magnificPopup({
-	    type: 'image',
-	    closeOnContentClick: true,
-	    closeBtnInside: false,
-	    fixedContentPos: true,
-	    mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
-	     gallery: {
-	      enabled: true,
-	      navigateByImgClick: true,
-	      preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-	    },
-	    image: {
-	      verticalFit: true
-	    },
-	    zoom: {
-	      enabled: true,
-	      duration: 300 // don't foget to change the duration also in CSS
-	    }
-	  });
-
-	  $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
-	    disableOn: 700,
-	    type: 'iframe',
-	    mainClass: 'mfp-fade',
-	    removalDelay: 160,
-	    preloader: false,
-
-	    fixedContentPos: false
-	  });
-	};
-	siteMagnificPopup();
-
 
 	var siteCarousel = function () {
 		if ( $('.nonloop-block-13').length > 0 ) {
@@ -334,18 +298,6 @@ jQuery(document).ready(function($) {
 
 	};
 	siteCarousel();
-
-	var siteStellar = function() {
-		$(window).stellar({
-	    responsive: false,
-	    parallaxBackgrounds: true,
-	    parallaxElements: true,
-	    horizontalScrolling: false,
-	    hideDistantElements: false,
-	    scrollProperty: 'scroll'
-	  });
-	};
-	siteStellar();
 
 	var siteCountDown = function() {
 
