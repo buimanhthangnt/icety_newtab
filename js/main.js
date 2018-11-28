@@ -33,7 +33,9 @@ $(document).ready(function($) {
 		let filtered = todos.filter(t => {
 			if (t.done) return false;
 			let current = new Date();
-			return getDate(current) > t.date || (getDate(current) == t.date && getTime(current) > t.time)
+			let current_date = getDate(current).split('/').reverse().join('/');
+			let t_date = t.date.split('/').reverse().join('/');
+			return current_date > t_date || (current_date == t_date && getTime(current) > t.time)
 		});
 		if (filtered.length == 0) {
 			$("#noti").text("You have nothing to do now");
