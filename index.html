@@ -26,32 +26,62 @@
           <div class="left_part" style="padding-top: 20px;">
             <h3>Settings</h3>
             <ul>
-              <li>
-                <h4>
-                  <a href="#">Your Name</a>
+              <li style="margin-bottom: 10px">
+                <h4 style="font-size: 15px">
+                  <a>Your Name</a>
                 </h4>
                 <div class="table_form">
                   <form class="book_table_form row" action="#">
-                    <div class="form-group col-md-12" style="margin-top: 10px">
-                      <input id="username-input" style="color: black !important" type="text" class="form-control" name="name" placeholder="Enter your name">
+                    <div class="form-group col-md-12" style="margin-top: 5px; margin-bottom: 10px">
+                      <input autocomplete="off" id="username-input" style="color: black !important; height: 34px" type="text" class="form-control" name="name" placeholder="Enter your name">
                     </div>
                     <div class="form-group col-md-12">
                       <button type="submit" value="submit" class="primary-btn dark"
-                      style="line-height: 0; height: 36px; width: 100%;" id="btn-save-name">Save</button>
+                      style="line-height: 0; height: 32px; width: 100%; border: 1px solid #f9cc41" id="btn-save-name">Save</button>
                     </div>
                   </form>
                 </div>
               </li>
+
+              <li style="margin-bottom: 10px">
+                <h4 style="font-size: 15px">
+                  <a>Background</a>
+                </h4>
+                <div class="table_form">
+                  <form class="book_table_form row" action="#">
+                    <div class="form-group col-md-12" style="margin-top: 5px; margin-bottom: 10px">
+                      <input autocomplete="off" id="image-url" style="color: black !important; height: 34px" type="text" class="form-control" name="name" placeholder="Paste image url here">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <button type="submit" value="submit" class="primary-btn dark"
+                      style="line-height: 0; height: 32px; width: 100%; border: 1px solid #f9cc41" id="btn-change-bg">Change</button>
+                    </div>
+                  </form>
+                </div>
+              </li>
+
+              <li style="margin-bottom: 10px">
+                  <h4 style="font-size: 15px; margin-bottom: 10px">
+                    <a>Restore default settings</a>
+                  </h4>
+                  <div class="table_form">
+                    <form class="book_table_form row" action="#">
+                      <div class="form-group col-md-12">
+                        <button value="submit" class="primary-btn dark"
+                        style="line-height: 0; height: 32px; width: 100%; border: 1px solid #f9cc41" id="btn-restore">Restore</button>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+          
             </ul>
           </div>
         </div>
         <div class="col-lg-4">
+          <div style="color: #f9cc41; font-size:18px; font-weight: 700; text-align:center; margin-top: 20px">icety</div>
           <ul class="list menu_right">
             <li>
-              <a class="active" href="#">Settings</a>
-            </li>
-            <li>
-              <a href="#">About</a>
+              <a>Make boring things less boring</a>
             </li>
           </ul>
         </div>
@@ -74,25 +104,8 @@
       <div class="container">
         <div class="row row-custom align-items-center">
           <div class="col-md-10">
-            <h1 class="mb-2 text-black w-75" style="font-size: 2rem;"><div id="welcome-text" class="font-weight-bold" style="font-size: 3rem;">Hi</div> Have a good day</h1>
-            <div class="job-search">
-              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link py-3 active" id="pills-job-tab" data-toggle="pill" href="#pills-job" role="tab" aria-controls="pills-job" aria-selected="true">Change background</a>
-                </li>
-              </ul>
-              <div class="tab-content bg-white p-4 rounded tab-content-faded" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-job" role="tabpanel" aria-labelledby="pills-job-tab">
-                  <div class="domain_search">
-                    <div class="domain_search_background"></div>
-                    <form action="#" class="domain_search_form" id="domain_search_form">
-                      <input id="image-url" type="text" class="domain_search_input" placeholder="Paste your image url here">
-                      <button class="domain_search_button" id="btn-change-bg">change</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <h1 class="mb-2 text-black w-75" style="font-size: 1.5rem;"><div id="welcome-text" class="font-weight-bold" style="font-size: 3rem;">Hi</div><span id="quote">Have a good day</span></h1>
+            
           </div>
         </div>
       </div>
@@ -108,16 +121,16 @@
           <div class="col-md-9" data-aos="fade" data-aos-delay="200">
             <form action="" class="row" onsubmit="">
               <div class="col-md-5">
-                <input id="todo-add-title" type="text" class="form-control border-0 mb-3 mb-md-0" style="border: 1px solid #cacaca !important" placeholder="What do you need to do?">
+                <input autocomplete="off" id="todo-add-title" type="text" class="form-control border-0 mb-3 mb-md-0" style="border: 1px solid #cacaca !important" placeholder="What do you need to do?">
               </div>
               <div class="col-md-4">
-                <input id="todo-add-datetime" type="datetime-local" class="form-control border-0 mb-3 mb-md-0" style="border: 1px solid #cacaca !important"/>
+                <input autocomplete="off" id="todo-add-datetime" type="datetime-local" class="form-control border-0 mb-3 mb-md-0" style="border: 1px solid #cacaca !important"/>
               </div>
               <div class="col-md-3">
                 <button id="todo-add-submit" type="submit" class="primary-btn dark" style="height: 45px; border-radius: 3px"><span>+ </span>Add</button> 
               </div>
             </form>
-            <!-- <a href="#" class="btn btn-primary py-3 btn-block"><span class="h5">+ </span>Add</a> -->
+            <!-- <a class="btn btn-primary py-3 btn-block"><span class="h5">+ </span>Add</a> -->
           </div>
         </div>
         <!-- Todo list here-->

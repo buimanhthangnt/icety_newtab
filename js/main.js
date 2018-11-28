@@ -172,16 +172,23 @@ jQuery(document).ready(function($) {
 			$('#pills-tabContent').toggleClass('tab-content-faded');
 		});
 
+		$("#btn-restore").on('click', function() {
+			window.localStorage.clear();
+			alert("Restored default settings. Refresh to see affects.")
+		});
+
 		$('#btn-save-name').on('click', function(e) {
 			e.preventDefault();
 			let username = $('#username-input').val();
 			window.localStorage.setItem('username', username);
 			$('#username-input').val("");
-			alert("Set your name successfully. Refresh page to see affects.")
+			$("#welcome-text").text("Hi, " + username);
+			alert("Set your name successfully")
 		});
 
 		let username = window.localStorage.getItem('username');
 		$("#welcome-text").text((username ? ("Hi, " + username) : "Welcome"));
+
 		let url = window.localStorage.getItem('url');
 		url = (url && navigator.onLine) ? url : "images/background.jpg";
 		$(".site-blocks-cover").css("background-image", 'url('+ url +')');
