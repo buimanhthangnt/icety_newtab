@@ -189,7 +189,8 @@ jQuery(document).ready(function($) {
 			$('#pills-tabContent').toggleClass('tab-content-faded');
 		});
 
-		$("#btn-restore").on('click', function() {
+		$("#btn-restore").on('click', function(e) {
+			e.preventDefault();
 			window.localStorage.clear();
 			alert("Restored default settings. Refresh to see affects.")
 		});
