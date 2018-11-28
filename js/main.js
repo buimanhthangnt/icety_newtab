@@ -19,6 +19,7 @@ return "" + hour + ":" + minute + "";
 
 let todos = window.localStorage.getItem('todos') || "[]";
 todos = JSON.parse(todos)
+let textColor = window.localStorage.getItem('color') || "black";
 
 $(document).ready(function($) {
 	"use strict";
@@ -180,5 +181,14 @@ $(document).ready(function($) {
 			$(".site-blocks-cover").css("background-image", 'url('+ url +')');
 			window.localStorage.setItem('url', url);
 		};
+	});
+	$("#text-area").addClass(`text-${textColor}`);
+	$("#btn-text-color").on('click', function () {
+		$("#text-area").removeClass(`text-${textColor}`);
+		if (textColor == "black") textColor = "white";
+		else textColor = "black";
+		window.localStorage.setItem('color', textColor);
+		$("#text-area").addClass(`text-${textColor}`);
+		alert("Changed text color to " + textColor);
 	});
 });

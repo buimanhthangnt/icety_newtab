@@ -44,7 +44,7 @@
 
               <li style="margin-bottom: 10px">
                 <h4 style="font-size: 15px">
-                  <a>Background</a>
+                  <a>Customize</a>
                 </h4>
                 <div class="table_form">
                   <form class="book_table_form row" action="#">
@@ -55,9 +55,15 @@
                       <!-- <button type="submit" value="submit" class="primary-btn dark"
                               style="line-height: 0; height: 32px; width: 100%; border: 1px solid #f9cc41" 
                               id="btn-change-bg">Change</button> -->
-                        Change
+                        Background
                       <input autocomplete="off" id="image-url" style="display: none" 
                               type="file" accept="image/jpeg,image/png" name="url" placeholder="Paste image url here">
+                    </label>
+                    <label id="btn-text-color" class="primary-btn dark" 
+                            style="height: 32px; width: 100%; border: 1px solid #f9cc41; 
+                            margin: 10px 15px 0 15px; display: flex; align-items: center;
+                            justify-content: center">
+                        Text color
                     </label>
                   </form>
                 </div>
@@ -110,7 +116,8 @@
       <div class="container">
         <div class="row row-custom align-items-center">
           <div class="col-md-10">
-            <h1 class="mb-2 text-black w-75" style="font-size: 1.5rem;"><div id="welcome-text" class="font-weight-bold" style="font-size: 2.4rem;"></div>
+            <h1 id="text-area" class="mb-2 w-75" style="font-size: 1.5rem;">
+              <div id="welcome-text" class="font-weight-bold" style="font-size: 2.4rem;"></div>
               <span id="quote">Have a good day</span><br/><br/>
               <a id="noti" style="font-size: 1.2rem; text-decoration: underline; display: block; cursor: pointer;"></a>
             </h1>
