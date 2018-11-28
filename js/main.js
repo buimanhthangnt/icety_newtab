@@ -4,57 +4,119 @@
  	once: false
  });
 
- function getDate() {
-	let currentDate = new Date()
-	let day = currentDate.getDate()
+ function getDate(datetime) {
+	if (!datetime) datetime = new Date()
+	let day = datetime.getDate()
 	if (day < 10) day = "0" + day;
-	let month = currentDate.getMonth() + 1
+	let month = datetime.getMonth() + 1
 	if (month < 10) month = "0" + month;
-	let year = currentDate.getFullYear()
+	let year = datetime.getFullYear()
 	return "" + day + "/" + month + "/" + year + "";
  }
- function getTime() {
-	let currentDate = new Date();
-	let hour = currentDate.getHours();
+ function getTime(datetime) {
+	if (!datetime) datetime = new Date()
+	let hour = datetime.getHours();
 	if (hour < 10) hour = "0" + hour;
-	let minute = currentDate.getMinutes() + 1
+	let minute = datetime.getMinutes() + 1
 	if (minute < 10) minute = "0" + minute;
 	return "" + hour + ":" + minute + "";
  }
 
-let todos = window.localStorage.getItem('todos') || [];
+let todos = window.localStorage.getItem('todos') || "[]";
 todos = JSON.parse(todos)
 
 jQuery(document).ready(function($) {
-
+	/////////////////////////////////////////////////////////////////////////////////////////
 	"use strict";
-	function renderTodos() {
+
+	$("#todo-add-submit").on('click', function (e) {
+		e.preventDefault();
+		let title = $("#todo-add-title").val();
+		if (title.trim() == "") return;
+		$("#todo-add-title").val("")
+		let datetime = new Date($("#todo-add-datetime").val());
+		// if (datetime == "Invalid Date") return;
+		if (!datetime) return;
+		$("#todo-add-datetime").val(null);
+		let todo = {
+			title: title,
+			date: getDate(datetime),
+			time: getTime(datetime),
+			done: false
+		}
+		handleAdd(todo);
+	})
+
+	function update(todos, oldTodos) {
+		if (!oldTodos) oldTodos = todos;
+		for (let i = 0; i < oldTodos.length; i++) {
+			$(`#todo-${i}`).remove();
+		}
+		window.localStorage.setItem('todos', JSON.stringify(todos));
+		renderTodos(todos);
+	}
+
+	function handleAdd(todo) {
+		todos.push(todo);
+		update(todos);
+	}
+
+	function handleDelete(index) {
+		$(`#todo-${index}`).css("transform", "translate(100%, 0%)")
+											.css("transition", "all 800ms ease")
+		setTimeout(function () {
+			let new_todos = todos.filter((t, i) => i != index);
+			update(new_todos, todos);
+			todos = new_todos;
+		}, 600);
+	}
+
+	function handleDone(index) {
+		todos = todos.map((t, i) => {
+			if (i != index) return t;
+			else {
+				t.done = true;
+				return t;
+			}
+		})
+		update(todos);
+	}
+
+	function renderTodos(todos) {
+		todos = todos.sort((t1, t2) => {
+			return t1.date < t2.date && t1.time < t2.time;
+		});
 		for (let i = 0; i < todos.length; i++) {
 			let todo = todos[i];
 			let title = todo.title.length > 30 ? todo.title.substring(0, 30) + "..." : todo.title;
 			let date = todo.date;
 			let time = todo.time;
 			let tag = todo.done ? "Completed" : "Todo";
-			let strEle = `<div class=\"row\"><div class=\"col-md-2\"></div><div class=\"col-md-8\"><div class=\"job-post-item bg-white p-4 d-block d-md-flex align-items-center\"><div class=\"mb-4 mb-md-0 mr-5\"><div class=\"job-post-item-header d-flex align-items-center\"><h2 class=\"mr-3 text-black h4\">${title}</h2><div class=\"badge-wrap\"><span class=\"${todo.done ? "bg-success" : "bg-warning"} text-white badge py-2 px-4\">${tag}</span></div></div><div class=\"job-post-item-body d-block d-md-flex\"><div class=\"mr-5\"><span class=\"fl-bigmug-line-portfolio23\"></span> ${date}</div><div><span class=\"fl-bigmug-line-big104\"></span> <span>${time}</span></div></div></div><div class=\"ml-auto\"><span class=\"btn btn-secondary rounded-circle btn-favorite text-gray-500\" style=\"margin-right: 30px !important; color: white !important; border-color: #f23a2e; background: #f23a2e;\"><span class=\"icon-trash\"></span></span><button class=\"btn btn-primary py-2\" ${todo.done ? "disabled" : ""}>Done</button></div></div></div><div class=\"col-md-2\"></div></div>`;
+			let strEle = `<div id=\"todo-${i}\" class=\"row\"><div class=\"col-md-2\"></div><div class=\"col-md-8\"><div class=\"job-post-item bg-white p-4 d-block d-md-flex align-items-center\"><div class=\"mb-4 mb-md-0 mr-5\"><div class=\"job-post-item-header d-flex align-items-center\"><h2 class=\"mr-3 text-black h4\">${title}</h2><div class=\"badge-wrap\"><span class=\"${todo.done ? "bg-success" : "bg-warning"} text-white badge py-2 px-4\">${tag}</span></div></div><div class=\"job-post-item-body d-block d-md-flex\"><div class=\"mr-5\"><span class=\"fl-bigmug-line-portfolio23\"></span> ${date}</div><div><span class=\"fl-bigmug-line-big104\"></span> <span>${time}</span></div></div></div><div class=\"ml-auto\"><span id="todo-delete-${i}" class=\"btn btn-secondary rounded-circle btn-favorite text-gray-500\" style=\"margin-right: 30px !important; color: white !important; border-color: #f23a2e; background: #f23a2e;\"><span class=\"icon-trash\"></span></span><button class=\"btn btn-primary py-2\" ${todo.done ? "disabled" : ""} id="todo-done-${i}">Done</button></div></div></div><div class=\"col-md-2\"></div></div>`;
 			$("#todoslist").append($(strEle));
+		}
+		for (let i = 0; i < todos.length; i++) {
+			$(`#todo-done-${i}`).on('click', function() {handleDone(i)});
+			$(`#todo-delete-${i}`).on('click', function() {handleDelete(i)});
 		}
 	}
 
-	renderTodos();
+	renderTodos(todos);
+	///////////////////////////////////////////////////////////////////////////////////
 
-	var siteMenuClone = function() {
+	let siteMenuClone = function() {
 
 		$('.js-clone-nav').each(function() {
-			var $this = $(this);
+			let $this = $(this);
 			$this.clone().attr('class', 'site-nav-wrap').appendTo('.site-mobile-menu-body');
 		});
 
 
 		setTimeout(function() {
 			
-			var counter = 0;
+			let counter = 0;
       $('.site-mobile-menu .has-children').each(function(){
-        var $this = $(this);
+        let $this = $(this);
         
         $this.prepend('<span class="arrow-collapse collapsed">');
 
@@ -75,7 +137,7 @@ jQuery(document).ready(function($) {
     }, 1000);
 
 		$('body').on('click', '.arrow-collapse', function(e) {
-      var $this = $(this);
+      let $this = $(this);
       if ( $this.closest('li').find('.collapse').hasClass('show') ) {
         $this.removeClass('active');
       } else {
@@ -86,7 +148,7 @@ jQuery(document).ready(function($) {
     });
 
 		$(window).resize(function() {
-			var $this = $(this),
+			let $this = $(this),
 				w = $this.width();
 
 			if ( w > 768 ) {
@@ -125,7 +187,7 @@ jQuery(document).ready(function($) {
 		$(".site-blocks-cover").css("background-image", 'url('+ url +')');
 
 		function ValidURL(str) {
-			var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+			let pattern = new RegExp('^(https?:\/\/)?'+ // protocol
 				'((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
 				'((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
 				'(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
@@ -152,7 +214,7 @@ jQuery(document).ready(function($) {
 		//////////////////////////////////////////////////////////////
 
 		$('body').on('click', '.js-menu-toggle', function(e) {
-			var $this = $(this);
+			let $this = $(this);
 			e.preventDefault();
 
 			if ( $('body').hasClass('offcanvas-menu') ) {
@@ -166,7 +228,7 @@ jQuery(document).ready(function($) {
 
 		// click outisde offcanvas
 		$(document).mouseup(function(e) {
-	    var container = $(".site-mobile-menu");
+	    let container = $(".site-mobile-menu");
 	    if (!container.is(e.target) && container.has(e.target).length === 0) {
 	      if ( $('body').hasClass('offcanvas-menu') ) {
 					$('body').removeClass('offcanvas-menu');
@@ -177,7 +239,7 @@ jQuery(document).ready(function($) {
 	siteMenuClone();
 
 
-	var sitePlusMinus = function() {
+	let sitePlusMinus = function() {
 		$('.js-btn-minus').on('click', function(e){
 			e.preventDefault();
 			if ( $(this).closest('.input-group').find('.form-control').val() != 0  ) {
@@ -194,7 +256,7 @@ jQuery(document).ready(function($) {
 	// sitePlusMinus();
 
 
-	var siteSliderRange = function() {
+	let siteSliderRange = function() {
     $( "#slider-range" ).slider({
       range: true,
       min: 0,
@@ -208,7 +270,7 @@ jQuery(document).ready(function($) {
       " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 	};
 
-	var siteCarousel = function () {
+	let siteCarousel = function () {
 		if ( $('.nonloop-block-13').length > 0 ) {
 			$('.nonloop-block-13').owlCarousel({
 		    center: false,
@@ -275,11 +337,11 @@ jQuery(document).ready(function($) {
 	};
 	siteCarousel();
 
-	var siteCountDown = function() {
+	let siteCountDown = function() {
 
 		if ( $('#date-countdown').length > 0 ) {
 			$('#date-countdown').countdown('2020/10/10', function(event) {
-			  var $this = $(this).html(event.strftime(''
+			  let $this = $(this).html(event.strftime(''
 			    + '<span class="countdown-block"><span class="label">%w</span> weeks </span>'
 			    + '<span class="countdown-block"><span class="label">%d</span> days </span>'
 			    + '<span class="countdown-block"><span class="label">%H</span> hr </span>'
@@ -291,7 +353,7 @@ jQuery(document).ready(function($) {
 	};
 	siteCountDown();
 
-	var siteDatePicker = function() {
+	let siteDatePicker = function() {
 
 		if ( $('.datepicker').length > 0 ) {
 			$('.datepicker').datepicker();
