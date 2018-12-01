@@ -2012,3 +2012,64 @@ font-size: 12px; }
   /* opacity: 1 !important; */
   /* transition: opacity 0.3s ease-out; */
 }
+
+#congrats {
+	position: absolute;
+	top: calc(50% - 50px);
+	width: 550px;
+	height: 100px;
+	line-height: 1;
+	text-align: center;
+	margin: 0 auto;
+	left: 0;
+  right: 0;
+  transition: visibility 2s ease-in;
+  visibility: hidden;
+}
+
+#title_congrat {
+	transform-origin: 50% 50%;
+	font-size: 50px;
+	font-family: 'Sigmar One', cursive;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	text-align: center;
+	width: 100%;
+	user-select: none;
+  -webkit-user-select: none;
+  z-index: 50;
+}
+
+.particle {
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	top: 45%;
+	left: 45%;
+	z-index: 1;
+	font-size: 30px;
+	/* // display: none;	 */
+}
+
+.star {
+  color: #ffcc00;
+  font-size: 30px !important;
+  z-index: 100;
+}
+
+.blob {
+	background: #d5f2ff;
+	background: rgba(red(#ffcc00), green(#ffcc00), blue(#ffcc00), 0.25);
+	border-radius: 50%;
+  display: block;
+  z-index: 100;
+}
+
+.mr-3 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 400px;
+  font-size: 1.35rem;
+}
