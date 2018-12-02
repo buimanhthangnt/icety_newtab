@@ -2073,3 +2073,12 @@ font-size: 12px; }
   max-width: 400px;
   font-size: 1.35rem;
 }
+
+#quote {
+  position: absolute;
+  left: 12%;
+  width: 76%;
+  bottom: 1.2rem;
+  text-align: center;
+  color: black;
+}

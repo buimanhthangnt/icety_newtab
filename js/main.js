@@ -184,12 +184,15 @@ $(document).ready(function($) {
 		};
 	});
 	$("#text-area").addClass(`text-${textColor}`);
+	$("#quote").addClass(`text-${textColor}`);
 	$("#btn-text-color").on('click', function () {
 		$("#text-area").removeClass(`text-${textColor}`);
+		$("#quote").removeClass(`text-${textColor}`);
 		if (textColor == "black") textColor = "white";
 		else textColor = "black";
 		window.localStorage.setItem('color', textColor);
 		$("#text-area").addClass(`text-${textColor}`);
+		$("#quote").addClass(`text-${textColor}`);
 		alert("Changed text color to " + textColor);
 	});
 
@@ -284,4 +287,20 @@ $(document).ready(function($) {
 		$congratsSection.append('<div class="particle blob ' + i + '"></div>');
 		}	
 	}
+
+	function setQuote() {
+		$.getJSON('scrapy/quotes.json', function(data) {
+			let rand_int = Math.floor(Math.random() * data.length);
+			let content = data[rand_int].content;
+			let author = data[rand_int].author;
+			// if (content[content.length-1] == '.') {
+			// 	content = content.substring(0, content.length-1);
+			// }
+			let quote = `"${content}" - ${author}`;
+			$("#quote").text(quote);
+		});
+	}
+	setTimeout(function() {
+		setQuote();
+	}, 800);
 });

@@ -4,7 +4,7 @@ import scrapy
 class QuotesSpider(scrapy.Spider):
     name = "quotes"
     start_urls = [
-        'file:///media/thangbm/6CF2096DF2093CB8/Work/Web/icety/index.html',
+        'file:///media/thangbm/6CF2096DF2093CB8/Work/Web/icety/selenium/index.html',
     ]
 
     def parse(self, response):
