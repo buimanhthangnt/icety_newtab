@@ -1,6 +1,7 @@
 # icety
 Make your boring new tab more interesting and useful
 ![](images/1.png)
+![](images/4.png)
 ![](images/2.png)
 ![](images/3.png)
 
